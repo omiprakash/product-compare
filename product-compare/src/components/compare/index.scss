@@ -1,0 +1,79 @@
+body {
+    margin: 0px; 
+    padding: 0px; 
+}
+.table_box {
+    max-width: 1250px; 
+    width: 100%; 
+    margin: 0 auto; 
+    font-family: 'Roboto', sans-serif; 
+    font-weight: 300; 
+    line-height: 22px;
+}
+.table_box #table_tata {
+    border-collapse: collapse; 
+    width: 100%; 
+}
+.table_box #table_tata td, #table_tata th {
+    border-right: 1px solid #ddd; 
+    padding: 15px; 
+    width: 33.333%;
+}
+.table_box #table_tata td:last-child, #table_tata th:last-child {
+    border-right: none;
+}
+.table_box #table_tata td.bordernone {
+    border: none;
+}
+.table_div #table_tata tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+.table_box #table_tata th {
+    padding-top: 12px; 
+    padding-bottom: 12px; 
+    text-align: left; 
+    background-color: #f9f9f9 
+}
+.table_box #table_tata tr td.bold {
+    font-weight: bold;
+}
+.imgbox {
+    margin-bottom: 15px; 
+    min-height: 250px;
+}
+.imgbox.imgbox_no {
+    background: #ebebeb; 
+    min-height: 250px;
+    width: 200px;
+}
+.imgbox img {
+    max-width: 200px; 
+    display: inline-block;
+}
+.table_box h3 {
+    margin: 0px; 
+    padding: 0px; 
+    font-size: 14px;
+}
+.table_box .price del {
+    color: #666666; 
+    font-size: 13px; 
+    font-weight: bold; 
+    display: inline-block; 
+    padding: 0px 10px;
+}
+.table_box .price span {
+    font-size: 13px; 
+    color: #20a019; 
+    font-weight: bold;
+}
+.table_box select {
+    width: 200px; 
+    padding: 10px; 
+    height: 35px; 
+    margin-top: 5px;
+}
+.table_box label {
+    display: block;
+    margin-top: 180px;
+}
