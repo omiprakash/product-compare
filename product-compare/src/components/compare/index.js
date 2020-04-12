@@ -6,7 +6,8 @@ class ComparePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            children: []
+            children: [],
+            itemId: ''
         }
         this.selectedItems = [];
 
@@ -39,7 +40,6 @@ class ComparePage extends React.Component {
     }
 
     selectItem = (e, id) => {
-        console.log(e.target.value);
         let self = this;
         this.setState({
             itemId: e.target.value
@@ -62,34 +62,47 @@ class ComparePage extends React.Component {
             })
             
         })
-       
-        
     }
 
+    removeItem = (e, id) => {
+        let itemList = this.state.itemNames;
+        const deletedProduct = this.selectedItems.filter(el => el.itemId === id.itemId)
+        let itemIdToPush = deletedProduct[0].itemId;
+        let itemNameToPush = deletedProduct[0].itemName;
+        itemList[itemIdToPush] = itemNameToPush;
+        let x = this.selectedItems.filter(el => el.itemId !== id.itemId)
+        this.selectedItems = x;
+        this.setState({
+            itemName: itemList
+        })
+        this.forceUpdate();
+
+    } 
+
     render() {
-        console.log(this.state.itemNames);
         return (
             <React.Fragment>
-                <div class="table_box">
+                <div className="table_box">
                     <table id="table_tata" width="100%" collspacing="0" callpadding="0" border="0">
                         <tr >
-                            <td class="bordernone">
+                            <td className="bordernone">
                                 <h1>Compare</h1>
                                 <span>{this.selectedItems.length} item seleted</span>
-                                <label for="show">
+                                <label htmlFor="show">
                                     {/* <input id="show" type="checkbox">
                                         Show me difference
                                     </input> */}
                                 </label>
                             </td>
-                            {this.selectedItems.length && this.selectedItems.map((idx, index) => {
+                            {this.selectedItems.length > 0 && this.selectedItems.map((idx, index) => {
                                 return (
-                                    <td class="bordernone">
-                                        <div class="imgbox">
+                                    <td className="bordernone" key={index}>
+                                        <div className="imgbox">
                                             <img src={idx.itemImage} alt={index} />
+                                            {index !== 0 && <span className="close" onClick={e => {this.removeItem(e, idx)}}>x</span>}
                                         </div>
                                         <h3>{idx.itemName['title']}</h3>
-                                        <div class="price">
+                                        <div className="price">
                                             <strong>&#8377;{idx.itemPriceSummary[this.state.itemId]['price']}</strong>
                                             <del>&#8377;{idx.itemPriceSummary[this.state.itemId]['finalPrice']}</del>
                                             <span>{idx.itemPriceSummary[this.state.itemId]['totalDiscount']}% off</span>
@@ -97,17 +110,21 @@ class ComparePage extends React.Component {
                                     </td>
                                 )
                             })}
-                            {this.selectedItems.length !== 3 && <td class="bordernone" width="100">
-                                <div class="imgbox imgbox_no">
+                            {this.selectedItems.length !== 4 && <td className="bordernone" width="100">
+                                <div className="imgbox imgbox_no">
                                     &nbsp;
                                 </div>
                                 <h3>Add Product </h3>
-                                <select value={this.state.itemNames ? this.state.itemNames : ''} name="addItem" id="addItem" onChange={e => { this.selectItem(e, 'getItem') }}>
+                                <select name="addItem" id="addItem" onChange={e => { this.selectItem(e, this.state.itemNames) }}>
+                                   <option value="">Select a product</option>
                                     {this.state.itemNames && Object.keys(this.state.itemNames).map(key => {
                                         return (
+                                            <React.Fragment>
                                             <option value={key} key={key}>{this.state.itemNames[key].title}</option>
+                                            </React.Fragment>
                                         )
                                     })}
+
                                 </select>
                             </td>}
                         </tr>
@@ -115,7 +132,7 @@ class ComparePage extends React.Component {
                         <th colspan="5">DISPLAY</th>
                         </tr>
                         <tr>
-                            <td class="bold">Size</td>
+                            <td className="bold">Size</td>
                             { this.selectedItems && this.selectedItems.map((id, index) => {
                                  return(
                                  <React.Fragment>
@@ -126,7 +143,7 @@ class ComparePage extends React.Component {
                             )}
                         </tr>
                         <tr>
-                            <td class="bold">Screen Type</td>
+                            <td className="bold">Screen Type</td>
                             { this.selectedItems && this.selectedItems.map((id, index) => {
                                 return(
                                 <React.Fragment>
@@ -137,7 +154,7 @@ class ComparePage extends React.Component {
                             )}
                         </tr>
                         <tr>
-                            <td class="bold">HD Technology and Resolution</td>
+                            <td className="bold">HD Technology and Resolution</td>
                             { this.selectedItems && this.selectedItems.map((id, index) => {
                                 return(
                                 <React.Fragment>
@@ -151,7 +168,7 @@ class ComparePage extends React.Component {
                         <th colspan="5">GENERAL FEATURES</th>
                         </tr>
                         <tr>
-                            <td class="bold">Smart TV</td>
+                            <td className="bold">Smart TV</td>
                             { this.selectedItems && this.selectedItems.map((id, index) => {
                                 return(
                                 <React.Fragment>
@@ -162,7 +179,7 @@ class ComparePage extends React.Component {
                             )}
                         </tr>
                         <tr>
-                            <td class="bold">Curve TV</td>
+                            <td className="bold">Curve TV</td>
                             { this.selectedItems && this.selectedItems.map((id, index) => {
                                 return(
                                 <React.Fragment>
@@ -173,7 +190,7 @@ class ComparePage extends React.Component {
                             )}
                         </tr>
                         <tr>
-                            <td class="bold">TouchScreen</td>
+                            <td className="bold">TouchScreen</td>
                             { this.selectedItems && this.selectedItems.map((id, index) => {
                                  return(
                                  <React.Fragment>
@@ -184,7 +201,7 @@ class ComparePage extends React.Component {
                             )}
                         </tr>
                         <tr>
-                            <td class="bold">Monitor Sensor</td>
+                            <td className="bold">Monitor Sensor</td>
                             { this.selectedItems && this.selectedItems.map((id, index) => {
                                  return(
                                  <React.Fragment>
@@ -195,7 +212,7 @@ class ComparePage extends React.Component {
                             )}
                         </tr>
                         <tr>
-                            <td class="bold">Launch year</td>
+                            <td className="bold">Launch year</td>
                             { this.selectedItems && this.selectedItems.map((id, index) => {
                                  return(
                                  <React.Fragment>
@@ -206,7 +223,7 @@ class ComparePage extends React.Component {
                             )}
                         </tr>
                         <tr>
-                            <td class="bold">In the Box</td>
+                            <td className="bold">In the Box</td>
                             { this.selectedItems && this.selectedItems.map((id, index) => {
                                 return(
                                 <React.Fragment>
@@ -220,7 +237,7 @@ class ComparePage extends React.Component {
                             <th colspan="5">INTERNET FEARTURES</th>
                         </tr>
                         <tr>
-                            <td class="bold">Build-in-Wifi</td>
+                            <td className="bold">Build-in-Wifi</td>
                             { this.selectedItems && this.selectedItems.map((id, index) => {
                                  return(
                                  <React.Fragment>
@@ -231,7 +248,7 @@ class ComparePage extends React.Component {
                             )}
                         </tr>
                         <tr>
-                            <td class="bold">Wireless Ready</td>
+                            <td className="bold">Wireless Ready</td>
                             { this.selectedItems && this.selectedItems.map((id, index) => {
                                 return(
                                 <React.Fragment>
@@ -242,7 +259,7 @@ class ComparePage extends React.Component {
                             )}
                         </tr>
                         <tr>
-                            <td class="bold">3G Dongale Plug and Play</td>
+                            <td className="bold">3G Dongale Plug and Play</td>
                             { this.selectedItems && this.selectedItems.map((id, index) => {
                                 return(
                                 <React.Fragment>

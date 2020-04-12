@@ -39,7 +39,10 @@ body {
 }
 .imgbox {
     margin-bottom: 15px; 
-    min-height: 250px;
+    min-height: 250px; 
+    text-align: center; 
+    position: relative;
+    top: 40px;
 }
 .imgbox.imgbox_no {
     background: #ebebeb; 
@@ -76,4 +79,19 @@ body {
 .table_box label {
     display: block;
     margin-top: 180px;
+}
+
+.imgbox span.close {
+    position: absolute; 
+    padding: 0px!important; 
+    color: #666666; 
+    right: 0px; 
+    top: 0px;
+    background: #ffffff; 
+    box-shadow: 0px 0px 5px #666666; 
+    border-radius: 100%; 
+    width: 20px; 
+    height: 20px; 
+    text-align: center; 
+    line-height: 16px; cursor: pointer;
 }
